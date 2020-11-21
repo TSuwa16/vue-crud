@@ -14,8 +14,8 @@
     <h3>Read Data</h3>
     <div>
       <ul>
-        <li v-for="(site,i) in sites " :key="i">
-          {{i}} {{ site.name}} {{ site.url}}
+        <li v-for="site in sites " :key="site.id">
+          {{site.id }} {{ site.name }} {{ site.url}}
         </li>
       </ul>
     </div>
@@ -57,6 +57,14 @@ export default {
       deleteId:''
     }
   },
+  created(){
+    fetch('http://127.0.0.1:3000/sites')
+    .then((res) => res.json())
+    .then((data) => {
+      this.sites = data;
+    })
+    .catch((err) => console.log(err))
+  },
   methods:{
     createData(){
       if(this.siteName === '' || this.siteURL === '') return;
@@ -64,32 +72,64 @@ export default {
         name:this.siteName,
         url:this.siteURL
       }
-      this.sites.push(siteInfo);
+      fetch('http://127.0.0.1:3000/sites',{
+        method:'POST',
+        headers:{
+          'Content-type':'application/json'
+        },
+        body:JSON.stringify(siteInfo)
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        this.sites.push(data);
 
-      this.siteName = '';
-      this.siteURL = '';
+        this.siteName = '';
+        this.siteURL = '';
+      })
+      .catch((err) => console.log(err))
     },
     updateData(){
       if(this.updateId === '' || this.updateName === '' || this.siteURL) return;
 
-      this.sites[Number(this.updateId)] = {
+      const siteInfo = {
         name:this.updateName,
         url:this.updateURL
-      };
-      this.updateId = '';
-      this.updateName = '';
-      this.updateURL = '';
+      }
+      fetch(`http://127.0.0.1:3000/sites/${this.updateId}`,{
+        method:'PUT',
+        headers:{
+          'Content-type':'application/json'
+        },
+        body:JSON.stringify(siteInfo)
+      })
+      .then((res) => res.json)
+      .then((data) => {
+        const index = this.sites.findIndex(site => site.id === data.id);
+        this.sites[index] = {
+          id:data.id,
+          name:data.name,
+          url:data.url
+        };
+        this.updateId = '';
+        this.updateName = '';
+        this.updateURL = '';
+      })
+      .catch((err) => console.log(err))
     },
     deleteData(){
       if(this.deleteId === '') return;
 
-      this.sites.splice(Number(this.deleteId),1);
-
-      this.deleteId = '';
-
+      fetch(`http://127.0.0.1:3000/sites/${this.deleteId}`,{
+        method:'DELETE'
+      })
+      .then(() =>{
+        const index = this.sites.findIndex(site => site.id === Number(this.deleteId));
+        this.sites.splice(index,1);
+              this.deleteId = '';
+      })
+      .catch((err) => console.log(err))
     }
   }
-
 }
 </script>
 
