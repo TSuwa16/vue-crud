@@ -1,24 +1,19 @@
 {
   "sites": [
     {
-      "id": 1,
-      "name": "Angular",
-      "url": "https:// angular. io/"
-    },
-    {
-      "id": 2,
-      "name": "React",
-      "url": "https:// reactjs. org/"
-    },
-    {
-      "id": 3,
-      "name": "Vue. js",
-      "url": "https:// vuejs. org/"
-    },
-    {
       "name": "myPage",
       "url": "http://127.0.0.1:8080",
       "id": 4
+    },
+    {
+      "name": "myGit",
+      "url": "https://github.com/TSuwa16",
+      "id": 6
+    },
+    {
+      "name": "JSON-SERVER",
+      "url": "http://127.0.0.1:3000/",
+      "id": 7
     }
   ]
 }
