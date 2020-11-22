@@ -3,8 +3,12 @@ import VueRouter from 'vue-router'
 import SiteList from '../components/SiteList'
 import AddSite from '../components/AddSite'
 import EditSite from '../components/EditSite'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(VueRouter)
+Vue.use(BootstrapVue)
 
 const routes = [
   { 

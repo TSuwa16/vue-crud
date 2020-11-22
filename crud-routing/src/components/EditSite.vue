@@ -1,11 +1,17 @@
 <template>
     <div>
-      <router-link to="/">Back</router-link>
-      <div>
-      <input v-model="siteName" placeholder="Site Name">
-      <input v-model="siteUrl" placeholder="Site URL">
-      <button @click="editSite()">EDIT</button>
-      </div>
+        <b-form>
+            <b-form-group id="input-gropu-1" label="Edit Site Name:" label-for="input-1">
+                <b-form-input id="input-1" v-model="siteName" placeholder="input Site Name...">
+                </b-form-input>
+            </b-form-group>
+            <b-form-group id="input-gropu-2" label="Edit Site URL:" label-for="input-2">
+                <b-form-input id="input-2" v-model="siteUrl" placeholder="input Site URL...">
+                </b-form-input>
+            </b-form-group>
+            <b-button variant="primary" @click="editSite()">EDIT</b-button>
+            <b-button variant="danger" @click="backPage()">BACK</b-button>
+        </b-form>
   </div>
 </template>
 
@@ -51,6 +57,9 @@ export default {
                 this.$router.push('/');
             })
             .catch((err) => console.log(err))
+        },
+        backPage(){
+            this.$router.push('/');
         }
     }
 }

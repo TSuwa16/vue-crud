@@ -1,12 +1,14 @@
 <template>
   <div>
-      <button @click="addSite()">ADD</button>
+      <b-button variant="primary" @click="addSite()">ADD</b-button>
       <h5>Site List</h5>
       <ul>
           <li v-for="(site) in sites" :key="site.id">
               <a :href="site.url" target="_blank">{{site.name}}</a>
-              <button @click="editSite(site.id)">EDIT</button>
-              <button @click="deleteSite(site.id)">DEL</button>
+              <b-button-group class="btn-group">
+                <b-button variant="outline-primary" @click="editSite(site.id)">EDIT</b-button>
+                <b-button variant="outline-danger" @click="deleteSite(site.id)">DEL</b-button>
+              </b-button-group>
           </li>
       </ul>
   </div>
@@ -47,3 +49,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .btn-group{
+        padding-left :20px;
+    }
+</style>
